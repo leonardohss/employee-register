@@ -1,5 +1,7 @@
 ﻿using System;
 using EmployeeRegister.Entities;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace EmployeeRegister
 {
@@ -7,11 +9,47 @@ namespace EmployeeRegister
     {
         static void Main(string[] args)
         {
-            Employee emp1 = new Employee("bob", 3, 100.0);
-            Employee emp2 = new OutsourcedEmployee("bob", 3, 100.0, 10);
+            List<Employee> emp = new List<Employee>();
 
-            Console.WriteLine(emp1.Payment());
-            Console.WriteLine(emp2.Payment());
+            Console.Write("Enter the number of employees: ");
+            int qtde = int.Parse(Console.ReadLine());
+
+            for(int x = 1; x <= qtde; x++)
+            {
+                Console.WriteLine($"Employee #{x} data: ");
+                Console.Write("Outsourced? (y/n): ");
+                string type = Console.ReadLine();
+                Console.Write("Name: ");
+                string name = Console.ReadLine();
+                Console.Write("Hours: ");
+                int hours = int.Parse(Console.ReadLine());
+                Console.Write("Value per Hour: ");
+                double valuePerHour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                if(type == "n")
+                {
+                    Employee empcreate = new Employee(name, hours, valuePerHour);
+                    emp.Add(empcreate);
+                } else if(type == "y")
+                {
+                    Console.Write("Additional charge: ");
+                    double addcharge = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Employee empcreate = new OutsourcedEmployee(name, hours, valuePerHour, addcharge);
+                    emp.Add(empcreate);
+                } else
+                {
+                    Employee empcreate = new Employee(name, hours, valuePerHour);
+                    emp.Add(empcreate);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("PAYMENTS: ");
+
+            foreach(Employee x in emp)
+            {
+                Console.WriteLine(x.Name + " - $" + x.Payment().ToString("F2"));
+            }
         }
     }
 }
