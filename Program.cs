@@ -18,7 +18,7 @@ namespace EmployeeRegister
             {
                 Console.WriteLine($"Employee #{x} data: ");
                 Console.Write("Outsourced? (y/n): ");
-                string type = Console.ReadLine();
+                char type = char.Parse(Console.ReadLine());
                 Console.Write("Name: ");
                 string name = Console.ReadLine();
                 Console.Write("Hours: ");
@@ -26,20 +26,14 @@ namespace EmployeeRegister
                 Console.Write("Value per Hour: ");
                 double valuePerHour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-                if(type == "n")
-                {
-                    Employee empcreate = new Employee(name, hours, valuePerHour);
-                    emp.Add(empcreate);
-                } else if(type == "y")
+                if(type == 'y')
                 {
                     Console.Write("Additional charge: ");
                     double addcharge = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                    Employee empcreate = new OutsourcedEmployee(name, hours, valuePerHour, addcharge);
-                    emp.Add(empcreate);
-                } else
+                    emp.Add(new OutsourcedEmployee(name, hours, valuePerHour, addcharge));
+                } else 
                 {
-                    Employee empcreate = new Employee(name, hours, valuePerHour);
-                    emp.Add(empcreate);
+                    emp.Add(new Employee(name, hours, valuePerHour));
                 }
             }
 

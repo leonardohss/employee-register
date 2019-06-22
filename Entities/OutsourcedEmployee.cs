@@ -18,7 +18,7 @@ namespace EmployeeRegister.Entities
 
         public override double Payment()
         {
-            return base.Payment() + (AdditionalCharge + (AdditionalCharge * 0.1));
+            return base.Payment() + (AdditionalCharge * 1.1);
         }
     }
 }
